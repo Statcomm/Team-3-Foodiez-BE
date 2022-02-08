@@ -1,19 +1,19 @@
-const Categories = require("../../models/Categories");
+const Category = require("../../models/Categories");
 
 exports.fetchCategory = async (categoryId, next) => {
   try {
-    const category = await Categories.findById(categoryId);
+    const category = await Category.findById(categoryId);
     return category;
   } catch (error) {
     next(error);
   }
 };
 
-exports.getCategories = async (req, res) => {
+exports.getCategory = async (req, res) => {
   try {
-    const categories = await Categories.find().populate("recipes");
-    console.log(categories);
-    return res.json(categories);
+    const category = await Category.find().populate("recipes");
+    console.log(category);
+    return res.json(category);
   } catch (error) {
     return res.status(500).json({ message: error.message });
   }
@@ -25,8 +25,8 @@ exports.categoryCreate = async (req, res, next) => {
     //   req.body.image = `/${req.file.path}`;
     //   req.body.image = req.body.image.replace('\\', '/');
     // }
-    const newCategories = await Categories.create(req.body);
-    return res.status(201).json(newCategories);
+    const newCategory = await Category.create(req.body);
+    return res.status(201).json(newCategory);
   } catch (error) {
     next(error);
   }

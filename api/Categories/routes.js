@@ -1,10 +1,6 @@
 const express = require("express");
 
-const {
-  getCategories,
-  categoryCreate,
-  fetchCategory,
-} = require("./controllers");
+const { getCategory, categoryCreate, fetchCategory } = require("./controllers");
 
 const router = express.Router();
 
@@ -20,6 +16,6 @@ router.param("categoryId", async (req, res, next, categoryId) => {
   }
 });
 
-router.get("/", getCategories);
+router.get("/", getCategory);
 router.post("/createcat", categoryCreate);
 module.exports = router;
