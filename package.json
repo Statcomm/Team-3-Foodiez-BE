@@ -1,0 +1,32 @@
+{
+  "dependencies": {
+    "cors": "^2.8.5",
+    "expres": "^0.0.5",
+    "express": "^4.17.2",
+    "mongo": "^0.1.0",
+    "mongoose": "^6.2.0",
+    "mongoose-slug-plugin": "^2.1.0",
+    "multer": "^1.4.4",
+    "nodemon": "^2.0.15",
+    "passport": "^0.5.2",
+    "passport-local": "^1.0.0"
+  },
+  "scripts": {
+    "start": "nodemon"
+  },
+  "name": "task-express-mongo-ref-sp",
+  "version": "1.0.0",
+  "main": "app.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Statcomm/Task-Express-Mongo-Ref-SP.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Statcomm/Task-Express-Mongo-Ref-SP/issues"
+  },
+  "homepage": "https://github.com/Statcomm/Task-Express-Mongo-Ref-SP#readme",
+  "description": ""
+}
