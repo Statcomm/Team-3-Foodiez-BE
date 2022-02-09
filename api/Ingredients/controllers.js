@@ -1,4 +1,5 @@
 const Ingredient = require("../../models/Ingredients");
+const Recipe = require("../../models/Recipes");
 
 exports.fetchIngredient = async (ingredientId, next) => {
   try {
@@ -25,6 +26,7 @@ exports.ingredientCreate = async (req, res, next) => {
       req.body.image = req.body.image.replace("\\", "/");
     }
     const newIngredient = await Ingredient.create(req.body);
+
     return res.status(201).json(newIngredient);
   } catch (error) {
     next(error);

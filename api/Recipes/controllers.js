@@ -13,7 +13,9 @@ exports.fetchRecipe = async (recipeId, next) => {
 
 exports.getRecipes = async (req, res) => {
   try {
-    const recipes = await Recipe.find().populate("ingredients", "categories");
+    const recipes = await Recipe.find()
+      .populate("ingredients")
+      .populate("categories");
     return res.json(recipes);
   } catch (error) {
     return res.status(500).json({ message: error.message });
@@ -27,10 +29,19 @@ exports.recipeCreate = async (req, res, next) => {
       req.body.image = req.body.image.replace("\\", "/");
     }
     const newRecipe = await Recipe.create(req.body);
-
-    await Category.findOneAndUpdate(
-      { _id: req.params.categoryId },
-      { $push: { recipe: newRecipe._id } }
+    req.body.categories.map(
+      async (categoryID) =>
+        await Category.findOneAndUpdate(
+          { _id: categoryID }, //FE needs to name this "categories"
+          { $push: { recipes: newRecipe._id } }
+        )
+    );
+    req.body.ingredients.map(
+      async (ingredientID) =>
+        await Recipe.findOneAndUpdate(
+          { _id: ingredientID }, //FE needs to name this "categories"
+          { $push: { recipes: newRecipe._id } }
+        )
     );
     return res.status(201).json(newRecipe);
   } catch (error) {
