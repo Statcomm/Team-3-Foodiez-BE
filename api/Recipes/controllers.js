@@ -1,5 +1,6 @@
 const Recipe = require("../../models/Recipes");
 const Category = require("../../models/Categories");
+const Ingredient = require("../../models/Ingredients");
 const { findById } = require("../../models/Recipes");
 
 exports.fetchRecipe = async (recipeId, next) => {
@@ -29,6 +30,7 @@ exports.recipeCreate = async (req, res, next) => {
       req.body.image = req.body.image.replace("\\", "/");
     }
     const newRecipe = await Recipe.create(req.body);
+
     req.body.categories.map(
       async (categoryID) =>
         await Category.findOneAndUpdate(
@@ -38,11 +40,12 @@ exports.recipeCreate = async (req, res, next) => {
     );
     req.body.ingredients.map(
       async (ingredientID) =>
-        await Recipe.findOneAndUpdate(
+        await Ingredient.findOneAndUpdate(
           { _id: ingredientID }, //FE needs to name this "categories"
           { $push: { recipes: newRecipe._id } }
         )
     );
+    console.log(req.body.ingredients);
     return res.status(201).json(newRecipe);
   } catch (error) {
     next(error);
