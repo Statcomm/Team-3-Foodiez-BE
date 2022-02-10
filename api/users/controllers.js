@@ -13,6 +13,7 @@ const generateToken = (newUser) => {
 };
 
 exports.signup = async (req, res, next) => {
+  console.log(req.body);
   try {
     const { password } = req.body;
     const saltRounds = 10;
@@ -20,6 +21,7 @@ exports.signup = async (req, res, next) => {
     console.log("exports.signup -> hashedPassword", hashedPassword);
     req.body.password = hashedPassword;
     const newUser = await User.create(req.body);
+
     const token = generateToken(newUser);
     res.status(201).json({ token });
   } catch (error) {
@@ -32,6 +34,6 @@ exports.signIn = async (req, res, done) => {
     const token = generateToken(req.user);
     res.status(201).json(token);
   } catch (error) {
-    next(error);
+    done(error);
   }
 };

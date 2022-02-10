@@ -20,11 +20,12 @@ app.use((req, res, next) => {
   next();
 });
 
+//Passport
 app.use(passport.initialize());
 passport.use(localStrategy);
 
 // Routes
-app.use("/signup", signupRoutes);
+app.use("/", signupRoutes);
 app.use("/recipes", recipesRoutes);
 app.use("/categories", categoriesRoutes);
 app.use("/ingredients", ingredientsRoutes);
@@ -34,5 +35,6 @@ app.use((err, req, res, next) => {
     message: err.message || "Internal Server Error",
   });
 });
+
 connectDb();
 app.listen(process.env.PORT || 5000);
